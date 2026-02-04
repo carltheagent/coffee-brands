@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老上海 Old Shanghai Coffee</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --navy: #1a1a2e;
+            --dark-navy: #12121f;
+            --cream: #FAF8F5;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: var(--navy);
+            color: #fff;
+        }
+        
+        /* Art Deco pattern background */
+        .deco-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(30deg, var(--gold) 12%, transparent 12.5%, transparent 87%, var(--gold) 87.5%, var(--gold)),
+                linear-gradient(150deg, var(--gold) 12%, transparent 12.5%, transparent 87%, var(--gold) 87.5%, var(--gold)),
+                linear-gradient(30deg, var(--gold) 12%, transparent 12.5%, transparent 87%, var(--gold) 87.5%, var(--gold)),
+                linear-gradient(150deg, var(--gold) 12%, transparent 12.5%, transparent 87%, var(--gold) 87.5%, var(--gold));
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 24px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, var(--navy) 0%, transparent 100%);
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gold-light);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 60px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+        }
+        
+        .deco-line {
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0 auto 40px;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 400;
+            color: var(--gold);
+            letter-spacing: 12px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+        
+        .hero .chinese-title {
+            font-size: 4rem;
+            color: #fff;
+            margin-bottom: 24px;
+            letter-spacing: 16px;
+        }
+        
+        .hero .tagline {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--gold-light);
+            margin-bottom: 48px;
+            letter-spacing: 4px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 18px 48px;
+            background: transparent;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            border: 1px solid var(--gold);
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            background: var(--gold);
+            color: var(--navy);
+        }
+        
+        .deco-divider {
+            margin-top: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+        }
+        
+        .deco-divider span {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        
+        .deco-divider::before,
+        .deco-divider::after {
+            content: '';
+            width: 100px;
+            height: 1px;
+            background: var(--gold);
+        }
+        
+        /* Story Section */
+        .story {
+            padding: 120px 60px;
+            background: var(--cream);
+            color: var(--navy);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .story h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--navy);
+            margin-bottom: 40px;
+            letter-spacing: 4px;
+        }
+        
+        .story p {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: #444;
+            margin-bottom: 24px;
+        }
+        
+        /* Flavors Section */
+        .flavors {
+            padding: 120px 60px;
+            background: var(--dark-navy);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--gold);
+            letter-spacing: 6px;
+            margin-bottom: 16px;
+        }
+        
+        .section-header p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        
+        .flavor-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        .flavor-card {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 48px 32px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .flavor-card:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .flavor-icon {
+            font-size: 3rem;
+            margin-bottom: 24px;
+        }
+        
+        .flavor-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--gold);
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+        
+        .flavor-card .english {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        
+        .flavor-card p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* Atmosphere Section */
+        .atmosphere {
+            padding: 120px 60px;
+            background: var(--navy);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .atmosphere-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .atmosphere-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--gold);
+            margin-bottom: 32px;
+            letter-spacing: 4px;
+        }
+        
+        .atmosphere-text p {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 24px;
+        }
+        
+        .atmosphere-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .deco-frame {
+            width: 350px;
+            height: 450px;
+            border: 2px solid var(--gold);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .deco-frame::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+        }
+        
+        .deco-frame-content {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .deco-frame-content .chinese {
+            font-size: 4rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        
+        .deco-frame-content p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 60px;
+            background: var(--gold);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--navy);
+            margin-bottom: 16px;
+            letter-spacing: 4px;
+        }
+        
+        .cta-section p {
+            font-size: 1.1rem;
+            color: var(--navy);
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+        
+        .email-form {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .email-form input {
+            flex: 1;
+            padding: 18px 24px;
+            border: 1px solid var(--navy);
+            border-right: none;
+            font-size: 1rem;
+            font-family: 'Cormorant Garamond', serif;
+            background: #fff;
+        }
+        
+        .email-form input:focus {
+            outline: none;
+        }
+        
+        .email-form button {
+            padding: 18px 32px;
+            background: var(--navy);
+            color: var(--gold);
+            border: 1px solid var(--navy);
+            font-size: 0.85rem;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .email-form button:hover {
+            background: var(--dark-navy);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 48px 60px;
+            background: var(--dark-navy);
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        footer p {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero .chinese-title {
+                font-size: 3rem;
+            }
+            
+            .flavor-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .atmosphere-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .deco-frame {
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            nav {
+                padding: 16px 24px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 100px 24px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+                letter-spacing: 6px;
+            }
+            
+            .hero .chinese-title {
+                font-size: 2.5rem;
+                letter-spacing: 8px;
+            }
+            
+            .story, .flavors, .atmosphere, .cta-section {
+                padding: 80px 24px;
+            }
+            
+            .email-form {
+                flex-direction: column;
+            }
+            
+            .email-form input {
+                border-right: 1px solid var(--navy);
+                border-bottom: none;
+            }
+            
+            .deco-frame {
+                width: 280px;
+                height: 360px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="deco-pattern"></div>
+    
+    <nav>
+        <div class="logo">老上海</div>
+        <div class="nav-links">
+            <a href="#story">Story</a>
+            <a href="#flavors">Collection</a>
+            <a href="#subscribe">Subscribe</a>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <div class="deco-line"></div>
+            <div class="chinese-title">老上海</div>
+            <h1>Old Shanghai</h1>
+            <div class="tagline">Where Jazz Age Glamour Meets Chinese Coffee</div>
+            <p>Step into the golden era. Old Shanghai brings the sophistication of 1930s Shanghai to your morning ritual — premium Yunnan beans infused with timeless Chinese spices, served with Art Deco elegance.</p>
+            <a href="#subscribe" class="cta-button">Join the Society</a>
+            <div class="deco-divider">
+                <span>◆</span>
+            </div>
+        </div>
+    </section>
+    
+    <section class="story" id="story">
+        <div class="story-content">
+            <h2>The Paris of the East</h2>
+            <p>In the 1920s and 30s, Shanghai was the most cosmopolitan city in the world. Jazz clubs, art deco ballrooms, and café society flourished along the Bund. Coffee houses served as salons for artists, writers, and dreamers.</p>
+            <p>Old Shanghai Coffee captures that spirit — the elegance of a bygone era, reborn for modern connoisseurs. Our Yunnan beans carry the terroir of mountain mists, while traditional spices whisper of silk road history.</p>
+        </div>
+    </section>
+    
+    <section class="flavors" id="flavors">
+        <div class="section-header">
+            <h2>The Collection</h2>
+            <p>Three Expressions of Elegance</p>
+        </div>
+        
+        <div class="flavor-grid">
+            <div class="flavor-card">
+                <div class="flavor-icon">🌙</div>
+                <h3>夜上海</h3>
+                <div class="english">Sichuan Noir</div>
+                <p>The signature tingle of Sichuan peppercorn, mysterious as a Shanghai night. Bold, awakening, unforgettable.</p>
+            </div>
+            
+            <div class="flavor-card">
+                <div class="flavor-icon">🌸</div>
+                <h3>外滩</h3>
+                <div class="english">Five Spice Bund</div>
+                <p>Star anise and cinnamon dance like couples at the Paramount Ballroom. Warm, romantic, intoxicating.</p>
+            </div>
+            
+            <div class="flavor-card">
+                <div class="flavor-icon">🏛️</div>
+                <h3>静安</h3>
+                <div class="english">Pu'er Palace</div>
+                <p>Ancient tea wisdom meets coffee sophistication. Deep, contemplative, eternal — like the temples of Jing'an.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="atmosphere">
+        <div class="atmosphere-content">
+            <div class="atmosphere-text">
+                <h2>A Ritual Restored</h2>
+                <p>In an age of rushed mornings and instant everything, Old Shanghai invites you to pause. To savor. To remember that coffee can be ceremony.</p>
+                <p>Our drip bags require nothing but hot water and a few minutes of your attention. No equipment, no expertise — just intention and appreciation.</p>
+            </div>
+            <div class="atmosphere-visual">
+                <div class="deco-frame">
+                    <div class="deco-frame-content">
+                        <div class="chinese">咖啡</div>
+                        <p>Coffee · 1930</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section" id="subscribe">
+        <h2>Join the Society</h2>
+        <p>Be among the first to experience Old Shanghai. Reserved for those who appreciate the finer things.</p>
+        <form class="email-form">
+            <input type="email" placeholder="Your email address">
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+    
+    <footer>
+        <p>© 2025 老上海 Old Shanghai Coffee · Elegance Restored</p>
+    </footer>
+</body>
+</html>

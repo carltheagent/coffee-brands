@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东方 Eastern Coffee</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --red: #CC0000;
+            --yellow: #FFD700;
+            --cream: #FFF8DC;
+            --dark-red: #8B0000;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, sans-serif;
+            background: var(--red);
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* Propaganda rays background */
+        .rays {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-conic-gradient(
+                    from 0deg at 50% 120%,
+                    var(--red) 0deg 10deg,
+                    #B80000 10deg 20deg
+                );
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: var(--red);
+            border-bottom: 4px solid var(--yellow);
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--yellow);
+            text-shadow: 2px 2px 0 var(--dark-red);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--yellow);
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 48px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+        }
+        
+        .star {
+            font-size: 6rem;
+            margin-bottom: 24px;
+            filter: drop-shadow(4px 4px 0 var(--dark-red));
+        }
+        
+        .hero h1 {
+            font-size: 6rem;
+            font-weight: 900;
+            color: var(--yellow);
+            text-shadow: 4px 4px 0 var(--dark-red);
+            margin-bottom: 16px;
+            letter-spacing: 8px;
+        }
+        
+        .hero .tagline {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 32px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 20px 60px;
+            background: var(--yellow);
+            color: var(--red);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border: 4px solid var(--dark-red);
+            box-shadow: 6px 6px 0 var(--dark-red);
+            transition: all 0.2s;
+        }
+        
+        .cta-button:hover {
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0 var(--dark-red);
+        }
+        
+        /* Slogan Banner */
+        .banner {
+            background: var(--yellow);
+            padding: 24px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .banner p {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--red);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+        
+        /* Flavors Section */
+        .flavors {
+            padding: 100px 48px;
+            background: var(--cream);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        
+        .section-header h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--red);
+            text-shadow: 3px 3px 0 var(--dark-red);
+            margin-bottom: 16px;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--dark-red);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        
+        .flavor-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        
+        .flavor-card {
+            background: #fff;
+            border: 4px solid var(--red);
+            box-shadow: 8px 8px 0 var(--red);
+            text-align: center;
+            padding: 40px 24px;
+            transition: all 0.2s;
+        }
+        
+        .flavor-card:hover {
+            transform: translate(4px, 4px);
+            box-shadow: 4px 4px 0 var(--red);
+        }
+        
+        .flavor-badge {
+            display: inline-block;
+            background: var(--red);
+            color: var(--yellow);
+            padding: 8px 24px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            transform: rotate(-2deg);
+        }
+        
+        .flavor-card h3 {
+            font-size: 2rem;
+            color: var(--red);
+            margin-bottom: 8px;
+        }
+        
+        .flavor-card .english {
+            font-size: 0.9rem;
+            color: #666;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        
+        .flavor-card p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        /* Manifesto Section */
+        .manifesto {
+            padding: 100px 48px;
+            background: var(--dark-red);
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .manifesto::before {
+            content: '☆';
+            position: absolute;
+            font-size: 30rem;
+            color: rgba(255,215,0,0.1);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        
+        .manifesto-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .manifesto h2 {
+            font-size: 3rem;
+            color: var(--yellow);
+            text-shadow: 3px 3px 0 #000;
+            margin-bottom: 40px;
+            letter-spacing: 4px;
+        }
+        
+        .manifesto-points {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            text-align: left;
+        }
+        
+        .point {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .point-number {
+            background: var(--yellow);
+            color: var(--red);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 48px;
+            background: var(--red);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-section h2 {
+            font-size: 3rem;
+            color: var(--yellow);
+            text-shadow: 3px 3px 0 var(--dark-red);
+            margin-bottom: 16px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .email-form {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .email-form input {
+            flex: 1;
+            padding: 20px 24px;
+            border: 4px solid var(--yellow);
+            border-right: none;
+            font-size: 1rem;
+            font-family: inherit;
+            background: #fff;
+        }
+        
+        .email-form input:focus {
+            outline: none;
+        }
+        
+        .email-form button {
+            padding: 20px 32px;
+            background: var(--yellow);
+            color: var(--red);
+            border: 4px solid var(--yellow);
+            font-size: 1rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .email-form button:hover {
+            background: #FFE55C;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 32px 48px;
+            background: var(--dark-red);
+            border-top: 4px solid var(--yellow);
+            text-align: center;
+        }
+        
+        footer p {
+            color: var(--yellow);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .hero .tagline {
+                font-size: 1.5rem;
+            }
+            
+            .flavor-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            nav {
+                padding: 16px 24px;
+            }
+            
+            .hero {
+                padding: 100px 24px;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+                letter-spacing: 4px;
+            }
+            
+            .star {
+                font-size: 4rem;
+            }
+            
+            .email-form {
+                flex-direction: column;
+            }
+            
+            .email-form input {
+                border-right: 4px solid var(--yellow);
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="rays"></div>
+    
+    <nav>
+        <div class="logo">东方 ☆</div>
+        <div class="nav-links">
+            <a href="#flavors">Flavors</a>
+            <a href="#manifesto">Manifesto</a>
+            <a href="#join">Join</a>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <div class="star">☆</div>
+            <h1>东方</h1>
+            <div class="tagline">Coffee for the People</div>
+            <p>Rise and brew! Eastern Coffee brings the bold flavors of China to the masses. Yunnan beans, revolutionary spices, uncompromising quality.</p>
+            <a href="#join" class="cta-button">Join the Movement</a>
+        </div>
+    </section>
+    
+    <div class="banner">
+        <p>★ Bold Beans · Bold Flavors · Bold Future ★</p>
+    </div>
+    
+    <section class="flavors" id="flavors">
+        <div class="section-header">
+            <h2>革命风味</h2>
+            <p>Revolutionary Flavors</p>
+        </div>
+        
+        <div class="flavor-grid">
+            <div class="flavor-card">
+                <div class="flavor-badge">No. 1</div>
+                <h3>麻辣</h3>
+                <div class="english">Sichuan Peppercorn</div>
+                <p>Electric. Numbing. Revolutionary. The flavor that started it all.</p>
+            </div>
+            
+            <div class="flavor-card">
+                <div class="flavor-badge">No. 2</div>
+                <h3>五香</h3>
+                <div class="english">Five Spice</div>
+                <p>Five spices unite! Star anise, cinnamon, and clove in perfect harmony.</p>
+            </div>
+            
+            <div class="flavor-card">
+                <div class="flavor-badge">No. 3</div>
+                <h3>普洱</h3>
+                <div class="english">Pu'er Blend</div>
+                <p>Ancient wisdom meets modern caffeine. Tea and coffee, together at last.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="manifesto" id="manifesto">
+        <div class="manifesto-content">
+            <h2>Our Manifesto</h2>
+            <div class="manifesto-points">
+                <div class="point">
+                    <div class="point-number">1</div>
+                    <span>Coffee should be accessible to all, not gatekept by snobs with pour-over fetishes.</span>
+                </div>
+                <div class="point">
+                    <div class="point-number">2</div>
+                    <span>Chinese flavors deserve a place in the coffee world. We're taking it.</span>
+                </div>
+                <div class="point">
+                    <div class="point-number">3</div>
+                    <span>Yunnan grows world-class beans. It's time the world knew.</span>
+                </div>
+                <div class="point">
+                    <div class="point-number">4</div>
+                    <span>Great coffee doesn't require expensive equipment. Just hot water and a drip bag.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section" id="join">
+        <h2>加入革命</h2>
+        <p>Join the revolution. Be first to taste the future.</p>
+        <form class="email-form">
+            <input type="email" placeholder="Your email, comrade">
+            <button type="submit">Join</button>
+        </form>
+    </section>
+    
+    <footer>
+        <p>© 2025 东方 EASTERN COFFEE · THE FUTURE IS BREWING</p>
+    </footer>
+</body>
+</html>

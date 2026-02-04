@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>玉露 Jade Dew Coffee</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --jade: #4A8B6F;
+            --jade-dark: #2D5A4A;
+            --jade-light: #E8F0EC;
+            --cream: #FDFCFA;
+            --charcoal: #2C2C2C;
+            --gray: #666;
+        }
+        
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 24px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(253, 252, 250, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--jade-dark);
+            letter-spacing: 2px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--jade);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 140px 60px 100px;
+        }
+        
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+        
+        .hero-text h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 5rem;
+            font-weight: 300;
+            color: var(--jade-dark);
+            line-height: 1.1;
+            margin-bottom: 16px;
+            letter-spacing: 8px;
+        }
+        
+        .hero-text .tagline {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--jade);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+        
+        .hero-text p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--gray);
+            margin-bottom: 48px;
+            max-width: 440px;
+            font-weight: 300;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: transparent;
+            color: var(--jade-dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border: 1px solid var(--jade-dark);
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            background: var(--jade-dark);
+            color: #fff;
+        }
+        
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .jade-circle {
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--jade-light) 0%, rgba(74, 139, 111, 0.2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .jade-circle::before {
+            content: '';
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            border: 1px solid var(--jade);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+        
+        .jade-circle::after {
+            content: '露';
+            font-family: 'Noto Serif SC', serif;
+            font-size: 8rem;
+            font-weight: 300;
+            color: var(--jade-dark);
+            opacity: 0.8;
+        }
+        
+        /* Philosophy Section */
+        .philosophy {
+            padding: 120px 60px;
+            background: var(--jade-light);
+        }
+        
+        .philosophy-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .philosophy h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--jade-dark);
+            margin-bottom: 40px;
+            letter-spacing: 4px;
+        }
+        
+        .philosophy p {
+            font-size: 1.15rem;
+            line-height: 2;
+            color: var(--gray);
+            font-weight: 300;
+        }
+        
+        /* Flavors Section */
+        .flavors {
+            padding: 120px 60px;
+            background: var(--cream);
+        }
+        
+        .section-header {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        .section-header h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--jade-dark);
+            letter-spacing: 4px;
+        }
+        
+        .section-header p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .flavor-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        .flavor-card {
+            padding: 48px 32px;
+            border: 1px solid rgba(74, 139, 111, 0.2);
+            background: #fff;
+            transition: all 0.3s;
+        }
+        
+        .flavor-card:hover {
+            border-color: var(--jade);
+        }
+        
+        .flavor-number {
+            font-size: 0.75rem;
+            color: var(--jade);
+            letter-spacing: 3px;
+            margin-bottom: 24px;
+        }
+        
+        .flavor-card h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--jade-dark);
+            margin-bottom: 8px;
+        }
+        
+        .flavor-card .english {
+            font-size: 0.8rem;
+            color: var(--gray);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        
+        .flavor-card p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--gray);
+            font-weight: 300;
+        }
+        
+        /* Process Section */
+        .process {
+            padding: 120px 60px;
+            background: var(--jade-dark);
+            color: #fff;
+        }
+        
+        .process-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .process h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            line-height: 1.4;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        .step {
+            padding: 32px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .step-number {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            opacity: 0.6;
+            margin-bottom: 16px;
+        }
+        
+        .step h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        
+        .step p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 140px 60px;
+            text-align: center;
+            background: var(--cream);
+        }
+        
+        .cta-section h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--jade-dark);
+            margin-bottom: 16px;
+            letter-spacing: 4px;
+        }
+        
+        .cta-section p {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 48px;
+            letter-spacing: 1px;
+        }
+        
+        .email-form {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        
+        .email-form input {
+            flex: 1;
+            padding: 18px 24px;
+            border: 1px solid #ddd;
+            border-right: none;
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: #fff;
+        }
+        
+        .email-form input:focus {
+            outline: none;
+            border-color: var(--jade);
+        }
+        
+        .email-form button {
+            padding: 18px 32px;
+            background: var(--jade-dark);
+            color: #fff;
+            border: 1px solid var(--jade-dark);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .email-form button:hover {
+            background: var(--jade);
+            border-color: var(--jade);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 60px;
+            background: var(--jade-light);
+            text-align: center;
+        }
+        
+        footer p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            letter-spacing: 2px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 60px;
+            }
+            
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .jade-circle {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .jade-circle::before {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .jade-circle::after {
+                font-size: 5rem;
+            }
+            
+            .flavor-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            nav {
+                padding: 16px 24px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 100px 24px;
+            }
+            
+            .hero-text h1 {
+                font-size: 3.5rem;
+            }
+            
+            .philosophy, .flavors, .process, .cta-section {
+                padding: 80px 24px;
+            }
+            
+            .email-form {
+                flex-direction: column;
+            }
+            
+            .email-form input {
+                border-right: 1px solid #ddd;
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">玉露</div>
+        <div class="nav-links">
+            <a href="#philosophy">Philosophy</a>
+            <a href="#flavors">Flavors</a>
+            <a href="#process">Process</a>
+            <a href="#subscribe">Subscribe</a>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>玉露</h1>
+                <div class="tagline">Jade Dew Coffee</div>
+                <p>A quiet moment in a busy world. Jade Dew brings the tranquil essence of Chinese tea culture to premium coffee — subtle, refined, and deeply satisfying.</p>
+                <a href="#subscribe" class="cta-button">Discover More</a>
+            </div>
+            <div class="hero-visual">
+                <div class="jade-circle"></div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="philosophy" id="philosophy">
+        <div class="philosophy-content">
+            <h2>静 · 雅 · 真</h2>
+            <p>In the mountains of Yunnan, where tea and coffee grow side by side, we found our inspiration. Jade Dew is coffee as meditation — each cup an invitation to pause, breathe, and appreciate the simple beauty of a well-crafted brew. Our spice infusions draw from centuries of Chinese culinary wisdom, creating flavors that are both familiar and entirely new.</p>
+        </div>
+    </section>
+    
+    <section class="flavors" id="flavors">
+        <div class="section-header">
+            <h2>风味</h2>
+            <p>Our Collection</p>
+        </div>
+        
+        <div class="flavor-grid">
+            <div class="flavor-card">
+                <div class="flavor-number">01</div>
+                <h3>花椒</h3>
+                <div class="english">Sichuan Peppercorn</div>
+                <p>A gentle numbness awakens the senses. Citrus notes dance with the bean's natural sweetness.</p>
+            </div>
+            
+            <div class="flavor-card">
+                <div class="flavor-number">02</div>
+                <h3>五香</h3>
+                <div class="english">Five Spice</div>
+                <p>Star anise and cinnamon create warmth without weight. Complex yet comforting.</p>
+            </div>
+            
+            <div class="flavor-card">
+                <div class="flavor-number">03</div>
+                <h3>普洱</h3>
+                <div class="english">Pu'er Blend</div>
+                <p>Ancient tea wisdom meets modern coffee craft. Earthy depth with silken finish.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="process" id="process">
+        <div class="process-content">
+            <h2>从山到杯<br>的旅程</h2>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <h4>Source</h4>
+                    <p>Single-origin Yunnan beans, grown at elevation alongside ancient tea trees.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <h4>Infuse</h4>
+                    <p>Traditional spices carefully blended with freshly ground coffee.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <h4>Pour</h4>
+                    <p>Sealed in drip bags for perfect extraction. Just add hot water.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section" id="subscribe">
+        <h2>品味宁静</h2>
+        <p>Be among the first to experience Jade Dew.</p>
+        <form class="email-form">
+            <input type="email" placeholder="Your email">
+            <button type="submit">Join Waitlist</button>
+        </form>
+    </section>
+    
+    <footer>
+        <p>© 2025 玉露 Jade Dew Coffee</p>
+    </footer>
+</body>
+</html>
