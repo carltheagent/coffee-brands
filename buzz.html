@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUZZ — Functional Spiced Coffee</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --yellow: #FFE566;
+            --yellow-dark: #FFD700;
+            --black: #0A0A0A;
+            --white: #FFFFFF;
+            --gray: #888;
+        }
+        
+        body {
+            font-family: 'Outfit', -apple-system, sans-serif;
+            background: var(--black);
+            color: var(--white);
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: var(--black);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--yellow);
+            letter-spacing: -1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--yellow);
+        }
+        
+        .nav-cta {
+            padding: 12px 28px;
+            background: var(--yellow);
+            color: var(--black) !important;
+            border-radius: 50px;
+            font-weight: 700;
+        }
+        
+        .nav-cta:hover {
+            background: var(--yellow-dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 160px 48px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(ellipse, rgba(255,229,102,0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .hero-text h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 32px;
+            letter-spacing: -2px;
+        }
+        
+        .hero-text h1 .yellow {
+            color: var(--yellow);
+        }
+        
+        .hero-text .subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--gray);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            padding: 18px 40px;
+            background: var(--yellow);
+            color: var(--black);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: var(--yellow-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            display: inline-block;
+            padding: 18px 40px;
+            background: transparent;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--white);
+        }
+        
+        /* Benefit badges */
+        .benefit-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .badge-icon {
+            font-size: 1rem;
+        }
+        
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .product-card {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 3/4;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 32px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: var(--yellow);
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+        }
+        
+        .product-icon {
+            font-size: 8rem;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .product-name {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--yellow);
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .product-tagline {
+            font-size: 1rem;
+            color: var(--gray);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 120px 48px;
+            background: var(--white);
+            color: var(--black);
+        }
+        
+        .features-header {
+            max-width: 800px;
+            margin: 0 auto 80px;
+            text-align: center;
+        }
+        
+        .features-header h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        
+        .features-header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+        
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 40px 24px;
+            background: #f8f8f8;
+            border-radius: 24px;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* No Junk Section */
+        .no-junk {
+            padding: 120px 48px;
+            background: var(--yellow);
+            color: var(--black);
+            text-align: center;
+        }
+        
+        .no-junk h2 {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 40px;
+        }
+        
+        .no-junk-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        .no-junk-item {
+            text-align: center;
+        }
+        
+        .no-junk-item .icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+        
+        .no-junk-item h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .no-junk-item p {
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+        
+        /* Flavors Section */
+        .flavors {
+            padding: 120px 48px;
+            background: var(--black);
+        }
+        
+        .flavors-header {
+            max-width: 1200px;
+            margin: 0 auto 64px;
+            text-align: center;
+        }
+        
+        .flavors-header h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+        
+        .flavors-header h2 .yellow {
+            color: var(--yellow);
+        }
+        
+        .flavor-cards {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        
+        .flavor-card {
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .flavor-card:hover {
+            border-color: var(--yellow);
+            transform: translateY(-4px);
+        }
+        
+        .flavor-card .emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .flavor-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .flavor-card .type {
+            font-size: 0.8rem;
+            color: var(--yellow);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        
+        .flavor-card p {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* How Section */
+        .how {
+            padding: 120px 48px;
+            background: #111;
+        }
+        
+        .how-header {
+            max-width: 1200px;
+            margin: 0 auto 64px;
+            text-align: center;
+        }
+        
+        .how-header h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+        
+        .how-steps {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+        }
+        
+        .how-step {
+            text-align: center;
+        }
+        
+        .step-num {
+            width: 80px;
+            height: 80px;
+            background: var(--yellow);
+            color: var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 2rem;
+            font-weight: 900;
+        }
+        
+        .how-step h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .how-step p {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 120px 48px;
+            background: var(--black);
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        
+        .cta h2 .yellow {
+            color: var(--yellow);
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+        }
+        
+        .email-form {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .email-form input {
+            flex: 1;
+            padding: 20px 28px;
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-right: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: #fff;
+        }
+        
+        .email-form input::placeholder {
+            color: #666;
+        }
+        
+        .email-form input:focus {
+            outline: none;
+            border-color: var(--yellow);
+        }
+        
+        .email-form button {
+            padding: 20px 36px;
+            background: var(--yellow);
+            color: var(--black);
+            border: none;
+            border-radius: 0 50px 50px 0;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .email-form button:hover {
+            background: var(--yellow-dark);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 48px;
+            background: var(--black);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        
+        footer .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--yellow);
+            margin-bottom: 12px;
+        }
+        
+        footer p {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .benefit-badges {
+                justify-content: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .no-junk-grid, .flavor-cards, .how-steps {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            nav {
+                padding: 16px 24px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 120px 24px 80px;
+            }
+            
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .email-form {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .email-form input, .email-form button {
+                border-radius: 50px;
+                border-right: 1px solid rgba(255,255,255,0.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">BUZZ</div>
+        <div class="nav-links">
+            <a href="#features">Benefits</a>
+            <a href="#flavors">Flavors</a>
+            <a href="#how">How It Works</a>
+            <a href="#signup" class="nav-cta">Get Early Access</a>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Clean energy.<br><span class="yellow">Zero junk.</span></h1>
+                <div class="subtitle">Spiced Yunnan coffee that actually does something. No crash. No chemicals. No $8 lattes.</div>
+                <div class="hero-buttons">
+                    <a href="#signup" class="btn-primary">Join Waitlist</a>
+                    <a href="#features" class="btn-secondary">See Benefits</a>
+                </div>
+                <div class="benefit-badges">
+                    <span class="badge"><span class="badge-icon">⚡</span> Sustained Energy</span>
+                    <span class="badge"><span class="badge-icon">🧠</span> Focus Boost</span>
+                    <span class="badge"><span class="badge-icon">🌿</span> All Natural</span>
+                    <span class="badge"><span class="badge-icon">✨</span> No Equipment</span>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="product-card">
+                    <div class="product-icon">☕</div>
+                    <div class="product-name">BUZZ</div>
+                    <div class="product-tagline">Functional Spiced Coffee</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="features-header">
+            <h2>Big on flavor. Bigger on function.</h2>
+            <p>Real Yunnan coffee + traditional Chinese spices = the most interesting way to get energized.</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Sustained Energy</h3>
+                <p>No spike. No crash. Just smooth, steady focus from Yunnan highlands beans.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌶️</div>
+                <h3>Metabolism Boost</h3>
+                <p>Sichuan peppercorn naturally fires up your system. Ancient wisdom, modern results.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Sharp Focus</h3>
+                <p>Coffee + five spice adaptogens. Your brain will thank you.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💪</div>
+                <h3>Clean Ingredients</h3>
+                <p>Single-origin beans. Real spices. Nothing artificial. Ever.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="no-junk">
+        <h2>NO JUNK. NO COMPROMISES.</h2>
+        <div class="no-junk-grid">
+            <div class="no-junk-item">
+                <div class="icon">🚫</div>
+                <h4>No Artificial Flavors</h4>
+                <p>Real Sichuan peppercorn. Real five spice. Real flavor.</p>
+            </div>
+            <div class="no-junk-item">
+                <div class="icon">🚫</div>
+                <h4>No Added Sugar</h4>
+                <p>Just pure coffee and spice. The way it should be.</p>
+            </div>
+            <div class="no-junk-item">
+                <div class="icon">🚫</div>
+                <h4>No Equipment</h4>
+                <p>Drip bag tech. Hot water is all you need.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="flavors" id="flavors">
+        <div class="flavors-header">
+            <h2>Pick your <span class="yellow">BUZZ</span></h2>
+        </div>
+        
+        <div class="flavor-cards">
+            <div class="flavor-card">
+                <div class="emoji">🌶️</div>
+                <h3>TINGLE</h3>
+                <div class="type">Sichuan Peppercorn</div>
+                <p>The signature. Numbing, tingling, energizing. Metabolism-boosting spice meets smooth coffee.</p>
+            </div>
+            <div class="flavor-card">
+                <div class="emoji">⭐</div>
+                <h3>STEADY</h3>
+                <div class="type">Five Spice</div>
+                <p>Adaptogenic warmth. Star anise, cinnamon, clove — ancient focus fuel.</p>
+            </div>
+            <div class="flavor-card">
+                <div class="emoji">🍵</div>
+                <h3>CALM</h3>
+                <div class="type">Pu'er Blend</div>
+                <p>Smooth energy without the edge. Tea-coffee fusion for balanced days.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="how" id="how">
+        <div class="how-header">
+            <h2>Ridiculously simple.</h2>
+        </div>
+        
+        <div class="how-steps">
+            <div class="how-step">
+                <div class="step-num">1</div>
+                <h4>Tear & hang</h4>
+                <p>Open packet. Place drip bag on mug. Takes 3 seconds.</p>
+            </div>
+            <div class="how-step">
+                <div class="step-num">2</div>
+                <h4>Pour & wait</h4>
+                <p>Add hot water. Let it drip for 2-3 minutes. Breathe.</p>
+            </div>
+            <div class="how-step">
+                <div class="step-num">3</div>
+                <h4>Drink & thrive</h4>
+                <p>Experience clean energy. Dominate your day. Repeat tomorrow.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta" id="signup">
+        <h2>Get the <span class="yellow">BUZZ</span></h2>
+        <p>Early access drops soon. Be first in line.</p>
+        <form class="email-form">
+            <input type="email" placeholder="your@email.com">
+            <button type="submit">I Want In</button>
+        </form>
+    </section>
+    
+    <footer>
+        <div class="footer-logo">BUZZ</div>
+        <p>© 2025 BUZZ Coffee · Functional Spiced Coffee from Yunnan</p>
+    </footer>
+</body>
+</html>

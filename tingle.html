@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TINGLE — Sichuan Spiced Coffee</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --red: #D64541;
+            --red-dark: #B83230;
+            --cream: #FDF8F3;
+            --black: #1A1A1A;
+            --gray: #666;
+        }
+        
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--black);
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: var(--cream);
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        
+        .logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            color: var(--red);
+            letter-spacing: 2px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--black);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--red);
+        }
+        
+        .nav-cta {
+            padding: 12px 28px;
+            background: var(--red);
+            color: #fff !important;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        .nav-cta:hover {
+            background: var(--red-dark);
+            color: #fff !important;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 140px 48px 100px;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .hero-text .eyebrow {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--red);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        
+        .hero-text h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--black);
+        }
+        
+        .hero-text h1 span {
+            color: var(--red);
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            padding: 18px 40px;
+            background: var(--red);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: var(--red-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            display: inline-block;
+            padding: 18px 40px;
+            background: transparent;
+            color: var(--black);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid var(--black);
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--black);
+            color: #fff;
+        }
+        
+        .hero-image {
+            position: relative;
+        }
+        
+        .hero-image-box {
+            width: 100%;
+            aspect-ratio: 4/5;
+            background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-image-box::before {
+            content: '🌶️';
+            font-size: 12rem;
+            opacity: 0.2;
+            position: absolute;
+        }
+        
+        .hero-image-text {
+            font-family: 'DM Serif Display', serif;
+            font-size: 6rem;
+            color: #fff;
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .hero-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 140px;
+            height: 140px;
+            background: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .hero-badge .number {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            color: var(--red);
+            line-height: 1;
+        }
+        
+        .hero-badge .label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gray);
+        }
+        
+        /* Story Section */
+        .story {
+            padding: 120px 48px;
+            background: #fff;
+        }
+        
+        .story-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .story-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        
+        .story-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        
+        .story-intro h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .story-intro .title {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+        
+        .story-text {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: var(--gray);
+        }
+        
+        .story-text p {
+            margin-bottom: 24px;
+        }
+        
+        .story-text strong {
+            color: var(--black);
+        }
+        
+        /* Quote callout */
+        .story-quote {
+            background: var(--cream);
+            padding: 40px;
+            border-left: 4px solid var(--red);
+            margin: 40px 0;
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--black);
+            line-height: 1.6;
+        }
+        
+        /* Flavors Section */
+        .flavors {
+            padding: 120px 48px;
+            background: var(--cream);
+        }
+        
+        .section-header {
+            max-width: 1200px;
+            margin: 0 auto 64px;
+            text-align: center;
+        }
+        
+        .section-header .eyebrow {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--red);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        
+        .section-header h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3rem;
+            color: var(--black);
+        }
+        
+        .flavor-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        
+        .flavor-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .flavor-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: var(--red);
+        }
+        
+        .flavor-card.featured {
+            border-color: var(--red);
+            position: relative;
+        }
+        
+        .flavor-card.featured::before {
+            content: 'SIGNATURE';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--red);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .flavor-emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .flavor-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+        
+        .flavor-card .subtitle {
+            font-size: 0.85rem;
+            color: var(--red);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        
+        .flavor-card p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 120px 48px;
+            background: var(--black);
+            color: #fff;
+        }
+        
+        .how-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .how-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .how-header .eyebrow {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--red);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        
+        .how-header h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3rem;
+        }
+        
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+        }
+        
+        .how-step {
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--red);
+        }
+        
+        .how-step h4 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .how-step p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 48px;
+            background: var(--red);
+            text-align: center;
+            color: #fff;
+        }
+        
+        .cta-section h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .email-form {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        
+        .email-form input {
+            flex: 1;
+            padding: 18px 24px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .email-form input:focus {
+            outline: none;
+        }
+        
+        .email-form button {
+            padding: 18px 32px;
+            background: var(--black);
+            color: #fff;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .email-form button:hover {
+            background: #333;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 48px;
+            background: var(--black);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        footer .footer-logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--red);
+            margin-bottom: 16px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .hero-image-box {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .flavor-grid, .how-steps {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .story-header {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            nav {
+                padding: 16px 24px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 100px 24px;
+            }
+            
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+            
+            .email-form {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .email-form input, .email-form button {
+                border-radius: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">TINGLE</div>
+        <div class="nav-links">
+            <a href="#story">Our Story</a>
+            <a href="#flavors">Flavors</a>
+            <a href="#how">How It Works</a>
+            <a href="#signup" class="nav-cta">Join Waitlist</a>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="eyebrow">Sichuan Spiced Coffee</div>
+                <h1>Coffee that makes your lips <span>tingle.</span></h1>
+                <p>We put Sichuan peppercorn in premium Yunnan coffee. It's weird. It's wonderful. It's the most interesting cup you'll have this year.</p>
+                <div class="hero-buttons">
+                    <a href="#signup" class="btn-primary">Join the Waitlist</a>
+                    <a href="#story" class="btn-secondary">Our Story</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-box">
+                    <div class="hero-image-text">T.</div>
+                </div>
+                <div class="hero-badge">
+                    <div class="number">0</div>
+                    <div class="label">Equipment<br>Required</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="story" id="story">
+        <div class="story-content">
+            <div class="story-header">
+                <div class="story-avatar">👋</div>
+                <div class="story-intro">
+                    <h2>Hey, I'm the founder.</h2>
+                    <div class="title">And I grew up in Sichuan.</div>
+                </div>
+            </div>
+            
+            <div class="story-text">
+                <p>In Chengdu, we put Sichuan peppercorn on everything. Noodles. Hot pot. Chicken. It creates this unique numbing, tingling sensation that's impossible to describe until you try it.</p>
+                
+                <p><strong>So one day I thought: what if we put it in coffee?</strong></p>
+                
+                <p>Everyone told me it was a weird idea. They were right. But weird doesn't mean wrong. The citrusy, floral notes of Sichuan peppercorn turned out to be a perfect match for coffee's natural complexity.</p>
+                
+                <div class="story-quote">
+                    "This doesn't taste like any Chinese food I know." Good. That's the point.
+                </div>
+                
+                <p>Tingle isn't about recreating something familiar. It's about creating something new — a coffee experience that wakes up your mouth, not just your brain. Made with single-origin Yunnan beans (from the mountains where tea and coffee grow side by side) and real Sichuan spices.</p>
+                
+                <p><strong>No artificial anything. No complicated equipment. Just hot water and a sense of adventure.</strong></p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="flavors" id="flavors">
+        <div class="section-header">
+            <div class="eyebrow">The Collection</div>
+            <h2>Three ways to tingle</h2>
+        </div>
+        
+        <div class="flavor-grid">
+            <div class="flavor-card featured">
+                <div class="flavor-emoji">🌶️</div>
+                <h3>The Original</h3>
+                <div class="subtitle">Sichuan Peppercorn</div>
+                <p>The one that started it all. Numbing, tingling, with bright citrus notes. Your first cup will surprise you. Your second will hook you.</p>
+            </div>
+            
+            <div class="flavor-card">
+                <div class="flavor-emoji">⭐</div>
+                <h3>The Warm One</h3>
+                <div class="subtitle">Five Spice</div>
+                <p>Star anise, cinnamon, and clove meet coffee. Like a hug from your cool aunt who lived in Shanghai.</p>
+            </div>
+            
+            <div class="flavor-card">
+                <div class="flavor-emoji">🍵</div>
+                <h3>The Wise One</h3>
+                <div class="subtitle">Pu'er Blend</div>
+                <p>Ancient tea meets modern coffee. Earthy, smooth, sophisticated. For when you want to feel things.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="how-it-works" id="how">
+        <div class="how-content">
+            <div class="how-header">
+                <div class="eyebrow">How It Works</div>
+                <h2>Embarrassingly easy</h2>
+            </div>
+            
+            <div class="how-steps">
+                <div class="how-step">
+                    <div class="step-number">1</div>
+                    <h4>Open the packet</h4>
+                    <p>Tear it. Hang the drip bag on your favorite mug. Feel a small sense of accomplishment.</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-number">2</div>
+                    <h4>Add hot water</h4>
+                    <p>Pour slowly. Watch the magic happen. This is your meditation moment.</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-number">3</div>
+                    <h4>Feel the tingle</h4>
+                    <p>Sip. Notice your lips. Notice everything. Welcome to your new favorite ritual.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section" id="signup">
+        <h2>Ready to tingle?</h2>
+        <p>Join the waitlist. We'll let you know the moment we're ready to ship.</p>
+        <form class="email-form">
+            <input type="email" placeholder="your@email.com">
+            <button type="submit">Count Me In</button>
+        </form>
+    </section>
+    
+    <footer>
+        <div class="footer-logo">TINGLE</div>
+        <p>© 2025 Tingle Coffee · Sichuan Spiced, Yunnan Sourced</p>
+    </footer>
+</body>
+</html>
