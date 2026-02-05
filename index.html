@@ -4,155 +4,360 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Brand Concepts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #1a1a1a;
+            font-family: 'Space Grotesk', -apple-system, sans-serif;
+            background: #0a0a0a;
             color: #fff;
             min-height: 100vh;
-            padding: 60px 20px;
         }
+        
+        /* Animated gradient background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 20% 20%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 80%, rgba(74, 139, 111, 0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 50%, rgba(255, 107, 53, 0.08) 0%, transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 80px 40px;
+            position: relative;
+            z-index: 1;
         }
+        
+        header {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+        
         h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h1 span {
             font-size: 3rem;
-            margin-bottom: 1rem;
-            text-align: center;
         }
+        
         .subtitle {
-            text-align: center;
-            color: #888;
-            margin-bottom: 60px;
             font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
         }
+        
+        .version-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+        }
+        
         .brands {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
         }
+        
         .brand-card {
-            background: #252525;
-            border-radius: 16px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
+        
+        .brand-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
         .brand-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.3);
         }
+        
+        .brand-card:hover::before {
+            opacity: 1;
+        }
+        
         .brand-preview {
-            height: 200px;
+            height: 220px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: 'Noto Serif SC', serif;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .brand-preview::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to top, rgba(10,10,10,1) 0%, transparent 100%);
+        }
+        
         .brand-info {
-            padding: 24px;
+            padding: 32px;
+            position: relative;
         }
+        
         .brand-info h2 {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-        .brand-info p {
+        
+        .brand-info h2 .chinese {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 400;
+        }
+        
+        .brand-tag {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
             color: #888;
-            line-height: 1.6;
-            margin-bottom: 16px;
+            letter-spacing: 1px;
         }
+        
+        .brand-info p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+        
         .brand-link {
-            display: inline-block;
-            padding: 12px 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
             background: #fff;
             color: #000;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 50px;
             font-weight: 600;
-            transition: opacity 0.2s;
+            font-size: 0.9rem;
+            transition: all 0.3s;
         }
+        
         .brand-link:hover {
-            opacity: 0.8;
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(255,255,255,0.15);
         }
+        
+        .brand-link svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s;
+        }
+        
+        .brand-link:hover svg {
+            transform: translateX(4px);
+        }
+        
         /* Brand-specific colors */
         .red-ink .brand-preview {
-            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+            background: linear-gradient(135deg, #4A0000 0%, #8B0000 50%, #DC143C 100%);
             color: #fff;
         }
+        
         .dongfang .brand-preview {
-            background: #CC0000;
+            background: linear-gradient(135deg, #8B0000 0%, #CC0000 100%);
             color: #FFD700;
         }
+        
         .jade-dew .brand-preview {
-            background: linear-gradient(135deg, #2D5A4A 0%, #4A8B6F 100%);
+            background: linear-gradient(135deg, #1a3d2e 0%, #2D5A4A 50%, #4A8B6F 100%);
             color: #fff;
         }
+        
         .mala .brand-preview {
-            background: linear-gradient(135deg, #FF6B35 0%, #F7C548 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7C548 50%, #FF8FA3 100%);
             color: #000;
         }
+        
         .old-shanghai .brand-preview {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #2a2a4e 100%);
             color: #D4AF37;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 100px;
+            padding: 40px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        
+        footer p {
+            color: #444;
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: #fff;
+        }
+        
+        @media (max-width: 800px) {
+            .container {
+                padding: 60px 24px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h1 span {
+                font-size: 2rem;
+            }
+            
+            .brands {
+                grid-template-columns: 1fr;
+            }
+            
+            .brand-preview {
+                height: 180px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="bg-gradient"></div>
+    
     <div class="container">
-        <h1>☕ Coffee Brand Concepts</h1>
-        <p class="subtitle">Chinese-inspired specialty coffee for the US market</p>
+        <header>
+            <div class="version-badge">V2 · FEBRUARY 2025</div>
+            <h1><span>☕</span> Coffee Brand Concepts</h1>
+            <p class="subtitle">Five distinct brand directions for a Chinese-inspired specialty coffee company. Each concept explores a unique aesthetic and target audience for Yunnan coffee with traditional Chinese spice infusions.</p>
+        </header>
         
         <div class="brands">
             <div class="brand-card red-ink">
                 <div class="brand-preview">红墨</div>
                 <div class="brand-info">
-                    <h2>Red Ink / 红墨</h2>
-                    <p>Traditional brush strokes meet modern coffee. Ink wash aesthetic with bold red and white calligraphy.</p>
-                    <a href="red-ink.html" class="brand-link">View Concept →</a>
+                    <h2><span class="chinese">红墨</span> Red Ink <span class="brand-tag">TRADITIONAL</span></h2>
+                    <p>Traditional brush strokes meet modern coffee ritual. Ink wash aesthetic with bold red and white calligraphy. For those who appreciate the art in every sip.</p>
+                    <a href="red-ink.html" class="brand-link">
+                        View Concept
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
             
             <div class="brand-card dongfang">
-                <div class="brand-preview">东方</div>
+                <div class="brand-preview">东方 ☆</div>
                 <div class="brand-info">
-                    <h2>Eastern / 东方</h2>
-                    <p>Bold propaganda poster aesthetic. Revolutionary reds, yellows, and worker-style typography.</p>
-                    <a href="dongfang.html" class="brand-link">View Concept →</a>
+                    <h2><span class="chinese">东方</span> Eastern <span class="brand-tag">BOLD</span></h2>
+                    <p>Revolutionary propaganda poster aesthetic. Bold reds, yellows, and worker-style typography. Coffee for the people, not the snobs.</p>
+                    <a href="dongfang.html" class="brand-link">
+                        View Concept
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
             
             <div class="brand-card jade-dew">
                 <div class="brand-preview">玉露</div>
                 <div class="brand-info">
-                    <h2>Jade Dew / 玉露</h2>
-                    <p>Modern minimalist with Chinese soul. Clean lines, jade green, contemporary elegance.</p>
-                    <a href="jade-dew.html" class="brand-link">View Concept →</a>
+                    <h2><span class="chinese">玉露</span> Jade Dew <span class="brand-tag">MINIMAL</span></h2>
+                    <p>Modern minimalist with Chinese soul. Clean lines, jade green, contemporary elegance. A quiet moment in a busy world.</p>
+                    <a href="jade-dew.html" class="brand-link">
+                        View Concept
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
             
             <div class="brand-card mala">
-                <div class="brand-preview">麻辣</div>
+                <div class="brand-preview">麻辣 🔥</div>
                 <div class="brand-info">
-                    <h2>Má Là / 麻辣</h2>
-                    <p>Playful, bold, Gen Z native. Embraces the spice, embraces the chaos. Internet-ready.</p>
-                    <a href="mala.html" class="brand-link">View Concept →</a>
+                    <h2><span class="chinese">麻辣</span> Má Là <span class="brand-tag">GEN Z</span></h2>
+                    <p>Playful, bold, internet-native. Embraces the spice, embraces the chaos. Coffee with a kick and a tingle. Meme-ready.</p>
+                    <a href="mala.html" class="brand-link">
+                        View Concept
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
             
             <div class="brand-card old-shanghai">
                 <div class="brand-preview">老上海</div>
                 <div class="brand-info">
-                    <h2>Old Shanghai</h2>
-                    <p>1920s-30s Art Deco glamour. Jazz age sophistication meets Chinese coffee culture.</p>
-                    <a href="old-shanghai.html" class="brand-link">View Concept →</a>
+                    <h2><span class="chinese">老上海</span> Old Shanghai <span class="brand-tag">VINTAGE</span></h2>
+                    <p>1920s-30s Art Deco glamour. Jazz age sophistication meets Chinese coffee culture. Where elegance is restored.</p>
+                    <a href="old-shanghai.html" class="brand-link">
+                        View Concept
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
+        
+        <footer>
+            <p>Built with ☕ and questionable amounts of caffeine</p>
+        </footer>
     </div>
 </body>
 </html>

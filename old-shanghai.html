@@ -16,7 +16,7 @@
             --gold: #D4AF37;
             --gold-light: #F4E4BA;
             --navy: #1a1a2e;
-            --dark-navy: #12121f;
+            --dark-navy: #0f0f1a;
             --cream: #FAF8F5;
         }
         
@@ -26,23 +26,35 @@
             color: #fff;
         }
         
-        /* Art Deco pattern background */
-        .deco-pattern {
+        /* Art Deco geometric pattern */
+        .deco-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             opacity: 0.03;
-            background-image: 
-                linear-gradient(30deg, var(--gold) 12%, transparent 12.5%, transparent 87%, var(--gold) 87.5%, var(--gold)),
-                linear-gradient(150deg, var(--gold) 12%, transparent 12.5%, transparent 87%, var(--gold) 87.5%, var(--gold)),
-                linear-gradient(30deg, var(--gold) 12%, transparent 12.5%, transparent 87%, var(--gold) 87.5%, var(--gold)),
-                linear-gradient(150deg, var(--gold) 12%, transparent 12.5%, transparent 87%, var(--gold) 87.5%, var(--gold));
-            background-size: 80px 140px;
-            background-position: 0 0, 0 0, 40px 70px, 40px 70px;
             pointer-events: none;
             z-index: 0;
+            background: 
+                linear-gradient(135deg, var(--gold) 25%, transparent 25%) -50px 0,
+                linear-gradient(225deg, var(--gold) 25%, transparent 25%) -50px 0,
+                linear-gradient(315deg, var(--gold) 25%, transparent 25%),
+                linear-gradient(45deg, var(--gold) 25%, transparent 25%);
+            background-size: 100px 100px;
+        }
+        
+        /* Film grain overlay */
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
         
         /* Navigation */
@@ -50,39 +62,58 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 24px 60px;
+            padding: 28px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            background: linear-gradient(to bottom, var(--navy) 0%, transparent 100%);
+            background: linear-gradient(to bottom, var(--navy) 0%, rgba(26, 26, 46, 0.8) 100%);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
         
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 600;
             color: var(--gold);
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             text-transform: uppercase;
         }
         
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 48px;
         }
         
         .nav-links a {
             text-decoration: none;
             color: var(--gold-light);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            padding: 8px 0;
+            position: relative;
             transition: color 0.3s;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
         
         .nav-links a:hover {
             color: var(--gold);
+        }
+        
+        .nav-links a:hover::after {
+            transform: scaleX(1);
         }
         
         /* Hero Section */
@@ -91,83 +122,136 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 120px 60px;
+            padding: 160px 60px 120px;
             position: relative;
             z-index: 1;
             text-align: center;
         }
         
         .hero-content {
-            max-width: 900px;
+            max-width: 1000px;
         }
         
+        /* Art Deco lines */
         .deco-line {
-            width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+        
+        .deco-line::before,
+        .deco-line::after {
+            content: '';
+            width: 120px;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            margin: 0 auto 40px;
+        }
+        
+        .deco-line .diamond {
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+        
+        .hero .chinese-title {
+            font-size: 5rem;
+            font-family: 'Playfair Display', serif;
+            color: #fff;
+            margin-bottom: 16px;
+            letter-spacing: 20px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 5rem;
+            font-size: 4rem;
             font-weight: 400;
             color: var(--gold);
-            letter-spacing: 12px;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-        }
-        
-        .hero .chinese-title {
-            font-size: 4rem;
-            color: #fff;
-            margin-bottom: 24px;
             letter-spacing: 16px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.5s;
         }
         
         .hero .tagline {
             font-size: 1.3rem;
             font-style: italic;
             color: var(--gold-light);
-            margin-bottom: 48px;
-            letter-spacing: 4px;
+            margin-bottom: 56px;
+            letter-spacing: 5px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.7s;
         }
         
         .hero p {
-            font-size: 1.2rem;
-            line-height: 2;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 48px;
-            max-width: 600px;
+            font-size: 1.3rem;
+            line-height: 2.2;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 56px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.9s;
         }
         
         .cta-button {
             display: inline-block;
-            padding: 18px 48px;
+            padding: 20px 56px;
             background: transparent;
             color: var(--gold);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-family: 'Playfair Display', serif;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             text-transform: uppercase;
             border: 1px solid var(--gold);
-            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.4s ease;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.1s;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            z-index: -1;
         }
         
         .cta-button:hover {
-            background: var(--gold);
             color: var(--navy);
         }
         
+        .cta-button:hover::before {
+            transform: translateX(0);
+        }
+        
         .deco-divider {
-            margin-top: 60px;
+            margin-top: 72px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 24px;
+            gap: 32px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.3s;
         }
         
         .deco-divider span {
@@ -185,7 +269,7 @@
         
         /* Story Section */
         .story {
-            padding: 120px 60px;
+            padding: 160px 60px;
             background: var(--cream);
             color: var(--navy);
             position: relative;
@@ -193,30 +277,44 @@
         }
         
         .story-content {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: center;
         }
         
+        .story-deco {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 48px;
+        }
+        
+        .story-deco svg {
+            width: 80px;
+            height: 80px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 1;
+        }
+        
         .story h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 400;
             color: var(--navy);
-            margin-bottom: 40px;
-            letter-spacing: 4px;
+            margin-bottom: 48px;
+            letter-spacing: 6px;
         }
         
         .story p {
-            font-size: 1.2rem;
-            line-height: 2;
+            font-size: 1.25rem;
+            line-height: 2.2;
             color: #444;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
         
         /* Flavors Section */
         .flavors {
-            padding: 120px 60px;
+            padding: 160px 60px;
             background: var(--dark-navy);
             position: relative;
             z-index: 1;
@@ -224,105 +322,119 @@
         
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 100px;
         }
         
         .section-header h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 400;
             color: var(--gold);
-            letter-spacing: 6px;
+            letter-spacing: 8px;
             margin-bottom: 16px;
         }
         
-        .section-header p {
-            font-size: 1rem;
-            color: rgba(255,255,255,0.6);
-            letter-spacing: 4px;
+        .section-header .subtitle {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 5px;
             text-transform: uppercase;
         }
         
         .flavor-grid {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            gap: 48px;
         }
         
         .flavor-card {
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 48px 32px;
+            background: rgba(212, 175, 55, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 56px 40px;
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .flavor-card::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            pointer-events: none;
         }
         
         .flavor-card:hover {
             border-color: var(--gold);
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(212, 175, 55, 0.08);
+            transform: translateY(-8px);
         }
         
         .flavor-icon {
-            font-size: 3rem;
-            margin-bottom: 24px;
+            font-size: 3.5rem;
+            margin-bottom: 28px;
+            display: block;
         }
         
         .flavor-card h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 400;
             color: var(--gold);
-            margin-bottom: 8px;
-            letter-spacing: 2px;
+            margin-bottom: 12px;
+            letter-spacing: 4px;
         }
         
         .flavor-card .english {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.5);
-            letter-spacing: 3px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
         }
         
         .flavor-card p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: rgba(255,255,255,0.7);
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: rgba(255,255,255,0.65);
         }
         
         /* Atmosphere Section */
         .atmosphere {
-            padding: 120px 60px;
+            padding: 160px 60px;
             background: var(--navy);
             position: relative;
             z-index: 1;
         }
         
         .atmosphere-content {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            gap: 100px;
             align-items: center;
         }
         
         .atmosphere-text h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 400;
             color: var(--gold);
-            margin-bottom: 32px;
-            letter-spacing: 4px;
+            margin-bottom: 40px;
+            letter-spacing: 5px;
         }
         
         .atmosphere-text p {
-            font-size: 1.1rem;
-            line-height: 2;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 24px;
+            font-size: 1.2rem;
+            line-height: 2.2;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 28px;
         }
         
         .atmosphere-visual {
@@ -332,8 +444,8 @@
         }
         
         .deco-frame {
-            width: 350px;
-            height: 450px;
+            width: 380px;
+            height: 480px;
             border: 2px solid var(--gold);
             position: relative;
             display: flex;
@@ -344,34 +456,141 @@
         .deco-frame::before {
             content: '';
             position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.5);
+            top: 24px;
+            left: 24px;
+            right: 24px;
+            bottom: 24px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Art Deco corners */
+        .deco-frame::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            width: 40px;
+            height: 40px;
+            border-top: 2px solid var(--gold);
+            border-left: 2px solid var(--gold);
+        }
+        
+        .deco-frame .corner-br {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 40px;
+            height: 40px;
+            border-bottom: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
         }
         
         .deco-frame-content {
             text-align: center;
-            padding: 40px;
+            padding: 48px;
         }
         
         .deco-frame-content .chinese {
-            font-size: 4rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
             color: var(--gold);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
         
         .deco-frame-content p {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        
+        /* Timeline Section */
+        .timeline {
+            padding: 120px 60px;
+            background: var(--cream);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .timeline-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--navy);
+            letter-spacing: 6px;
+            margin-bottom: 16px;
+        }
+        
+        .timeline-header p {
+            font-size: 1rem;
+            color: #666;
             letter-spacing: 4px;
             text-transform: uppercase;
         }
         
+        .timeline-steps {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+        
+        .timeline-step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .timeline-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -24px;
+            top: 40px;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            transition: all 0.3s;
+        }
+        
+        .timeline-step:hover .step-number {
+            background: var(--gold);
+            color: var(--navy);
+        }
+        
+        .timeline-step h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+        
+        .timeline-step p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.7;
+        }
+        
         /* CTA Section */
         .cta-section {
-            padding: 120px 60px;
+            padding: 160px 60px;
             background: var(--gold);
             text-align: center;
             position: relative;
@@ -380,31 +599,31 @@
         
         .cta-section h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 400;
             color: var(--navy);
-            margin-bottom: 16px;
-            letter-spacing: 4px;
+            margin-bottom: 20px;
+            letter-spacing: 6px;
         }
         
         .cta-section p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--navy);
             opacity: 0.8;
-            margin-bottom: 40px;
+            margin-bottom: 48px;
         }
         
         .email-form {
             display: flex;
             justify-content: center;
             gap: 0;
-            max-width: 500px;
+            max-width: 540px;
             margin: 0 auto;
         }
         
         .email-form input {
             flex: 1;
-            padding: 18px 24px;
+            padding: 20px 28px;
             border: 1px solid var(--navy);
             border-right: none;
             font-size: 1rem;
@@ -417,13 +636,13 @@
         }
         
         .email-form button {
-            padding: 18px 32px;
+            padding: 20px 40px;
             background: var(--navy);
             color: var(--gold);
             border: 1px solid var(--navy);
             font-size: 0.85rem;
             font-family: 'Playfair Display', serif;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s;
@@ -435,30 +654,53 @@
         
         /* Footer */
         footer {
-            padding: 48px 60px;
+            padding: 56px 60px;
             background: var(--dark-navy);
             text-align: center;
             border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
         
+        footer .footer-deco {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        
+        footer .footer-deco span {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+        
+        footer .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+        }
+        
         footer p {
-            color: rgba(255,255,255,0.4);
+            color: rgba(255,255,255,0.35);
             font-size: 0.85rem;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
         
         /* Responsive */
-        @media (max-width: 1000px) {
+        @media (max-width: 1100px) {
             .hero h1 {
-                font-size: 3.5rem;
+                font-size: 3rem;
             }
             
             .hero .chinese-title {
-                font-size: 3rem;
+                font-size: 4rem;
             }
             
             .flavor-grid {
                 grid-template-columns: 1fr;
+                max-width: 450px;
             }
             
             .atmosphere-content {
@@ -469,11 +711,19 @@
             .deco-frame {
                 margin: 0 auto;
             }
+            
+            .timeline-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .timeline-step:not(:last-child)::after {
+                display: none;
+            }
         }
         
         @media (max-width: 600px) {
             nav {
-                padding: 16px 24px;
+                padding: 20px 24px;
             }
             
             .nav-links {
@@ -481,21 +731,25 @@
             }
             
             .hero {
-                padding: 100px 24px;
+                padding: 120px 24px;
             }
             
             .hero h1 {
-                font-size: 2.5rem;
-                letter-spacing: 6px;
-            }
-            
-            .hero .chinese-title {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
                 letter-spacing: 8px;
             }
             
-            .story, .flavors, .atmosphere, .cta-section {
-                padding: 80px 24px;
+            .hero .chinese-title {
+                font-size: 3rem;
+                letter-spacing: 12px;
+            }
+            
+            .story, .flavors, .atmosphere, .cta-section, .timeline {
+                padding: 100px 24px;
+            }
+            
+            .timeline-steps {
+                grid-template-columns: 1fr;
             }
             
             .email-form {
@@ -511,24 +765,32 @@
                 width: 280px;
                 height: 360px;
             }
+            
+            .deco-frame-content .chinese {
+                font-size: 4rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="deco-pattern"></div>
+    <div class="deco-bg"></div>
+    <div class="film-grain"></div>
     
     <nav>
         <div class="logo">老上海</div>
         <div class="nav-links">
             <a href="#story">Story</a>
             <a href="#flavors">Collection</a>
+            <a href="#ritual">Ritual</a>
             <a href="#subscribe">Subscribe</a>
         </div>
     </nav>
     
     <section class="hero">
         <div class="hero-content">
-            <div class="deco-line"></div>
+            <div class="deco-line">
+                <div class="diamond"></div>
+            </div>
             <div class="chinese-title">老上海</div>
             <h1>Old Shanghai</h1>
             <div class="tagline">Where Jazz Age Glamour Meets Chinese Coffee</div>
@@ -542,6 +804,12 @@
     
     <section class="story" id="story">
         <div class="story-content">
+            <div class="story-deco">
+                <svg viewBox="0 0 80 80">
+                    <polygon points="40,5 75,40 40,75 5,40" />
+                    <polygon points="40,15 65,40 40,65 15,40" />
+                </svg>
+            </div>
             <h2>The Paris of the East</h2>
             <p>In the 1920s and 30s, Shanghai was the most cosmopolitan city in the world. Jazz clubs, art deco ballrooms, and café society flourished along the Bund. Coffee houses served as salons for artists, writers, and dreamers.</p>
             <p>Old Shanghai Coffee captures that spirit — the elegance of a bygone era, reborn for modern connoisseurs. Our Yunnan beans carry the terroir of mountain mists, while traditional spices whisper of silk road history.</p>
@@ -551,26 +819,26 @@
     <section class="flavors" id="flavors">
         <div class="section-header">
             <h2>The Collection</h2>
-            <p>Three Expressions of Elegance</p>
+            <div class="subtitle">Three Expressions of Elegance</div>
         </div>
         
         <div class="flavor-grid">
             <div class="flavor-card">
-                <div class="flavor-icon">🌙</div>
+                <span class="flavor-icon">🌙</span>
                 <h3>夜上海</h3>
                 <div class="english">Sichuan Noir</div>
                 <p>The signature tingle of Sichuan peppercorn, mysterious as a Shanghai night. Bold, awakening, unforgettable.</p>
             </div>
             
             <div class="flavor-card">
-                <div class="flavor-icon">🌸</div>
+                <span class="flavor-icon">🌸</span>
                 <h3>外滩</h3>
                 <div class="english">Five Spice Bund</div>
                 <p>Star anise and cinnamon dance like couples at the Paramount Ballroom. Warm, romantic, intoxicating.</p>
             </div>
             
             <div class="flavor-card">
-                <div class="flavor-icon">🏛️</div>
+                <span class="flavor-icon">🏛️</span>
                 <h3>静安</h3>
                 <div class="english">Pu'er Palace</div>
                 <p>Ancient tea wisdom meets coffee sophistication. Deep, contemplative, eternal — like the temples of Jing'an.</p>
@@ -583,15 +851,46 @@
             <div class="atmosphere-text">
                 <h2>A Ritual Restored</h2>
                 <p>In an age of rushed mornings and instant everything, Old Shanghai invites you to pause. To savor. To remember that coffee can be ceremony.</p>
-                <p>Our drip bags require nothing but hot water and a few minutes of your attention. No equipment, no expertise — just intention and appreciation.</p>
+                <p>Our drip bags require nothing but hot water and a few minutes of your attention. No equipment, no expertise — just intention and appreciation for the finer things.</p>
             </div>
             <div class="atmosphere-visual">
                 <div class="deco-frame">
+                    <div class="corner-br"></div>
                     <div class="deco-frame-content">
                         <div class="chinese">咖啡</div>
-                        <p>Coffee · 1930</p>
+                        <p>Coffee · Est. 1930</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="timeline" id="ritual">
+        <div class="timeline-header">
+            <h2>The Ritual</h2>
+            <p>Four Steps to Elegance</p>
+        </div>
+        
+        <div class="timeline-steps">
+            <div class="timeline-step">
+                <div class="step-number">I</div>
+                <h4>Select</h4>
+                <p>Choose your mood. Noir for adventure, Bund for warmth, Palace for reflection.</p>
+            </div>
+            <div class="timeline-step">
+                <div class="step-number">II</div>
+                <h4>Prepare</h4>
+                <p>Open the packet. Place the drip bag upon your finest cup.</p>
+            </div>
+            <div class="timeline-step">
+                <div class="step-number">III</div>
+                <h4>Pour</h4>
+                <p>Add water just off the boil. Watch as history unfolds into your cup.</p>
+            </div>
+            <div class="timeline-step">
+                <div class="step-number">IV</div>
+                <h4>Savor</h4>
+                <p>Sip slowly. Let the Jazz Age wash over you.</p>
             </div>
         </div>
     </section>
@@ -606,6 +905,12 @@
     </section>
     
     <footer>
+        <div class="footer-deco">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="footer-logo">老上海</div>
         <p>© 2025 老上海 Old Shanghai Coffee · Elegance Restored</p>
     </footer>
 </body>
